@@ -1,0 +1,84 @@
+.table {
+  width: 100%;
+  padding: 30px;
+  border-collapse: collapse;
+}
+
+.test {
+    padding: 40px;
+}
+
+.table th, .table td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.table th {
+  text-align: left;
+  background-color: #ccc;
+  font-weight: bold;
+}
+
+
+.table thead {
+    text-align: left;
+}
+
+input[type="text"] {
+  padding: 8px;
+  border: 1px solid #100f0f;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 500px;
+  float: right;
+  margin-right: 20px;
+}
+
+#close {
+ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    float: right;
+
+}
+
+#close:hover{
+  cursor: pointer;
+  color: red;
+}
+
+#logouts{
+  float: right;
+ 
+  width: 60px;
+  background: rgb(255, 170, 0);
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+}
+
+#addUser{
+  width: 60px;
+  background: rgb(43, 0, 255);
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+.userDelete{
+  width: 60px;
+  background: rgb(255, 55, 0);
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+.editUser{
+  width: 60px;
+  background: rgb(0, 149, 255);
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}

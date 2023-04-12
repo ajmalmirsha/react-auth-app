@@ -1,0 +1,26 @@
+.profile{
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+#logout{
+    float: right;
+    margin-top: 20px;
+    margin-right: -50px;
+    width: 60px;
+    background: rgb(255, 170, 0);
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+}
+
+#homeHead{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(40, 4, 123);
+  
+}
+
+
