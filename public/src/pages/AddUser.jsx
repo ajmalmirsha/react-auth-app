@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 import { ToastContainer, toast } from "react-toastify";
 import './addUser.css'
+import { useCookies } from 'react-cookie';
 function AddUser() {
     const [value,setValue] = useState({
         email:'',
         phone:'',
         password:''
     })
+    const [cookies, setCookie, removeCookie] = useCookies([])
     const navigate = useNavigate()
     const generateError = (err) => toast.error(err,{
         position:'bottom-right'
@@ -59,7 +61,18 @@ function AddUser() {
         }
          }
   return (
+    <>
+     <span className='adminHomes' onClick={()=>{
+      navigate('/admin')
+     }}>Home</span>
+
+     <button id='logouts' onClick={() => {
+        removeCookie('jwt')
+        navigate('/login')
+      }}>Log out</button>
+
     <div className='addUser'>
+     
       <form  onSubmit={(e)=>{
    handlesubmit(e)
       }} >
@@ -84,6 +97,7 @@ function AddUser() {
       </form>
       <ToastContainer/>
     </div>
+    </>
   )
 }
 

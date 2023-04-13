@@ -18,7 +18,6 @@ const userSlice = createSlice({
             state.email = action.payload.email;
             state.phone = action.payload.phone;
             state.image = action.payload.image;
-           
           } 
     }
 })

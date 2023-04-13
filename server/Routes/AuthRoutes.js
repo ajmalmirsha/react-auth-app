@@ -1,7 +1,7 @@
 const { register, login, admin, AdminLogin, deleteUser, editUser, uploadImage } = require('../Controllers/AuthControllers')
 const { checkUser } = require('../Middlewares/AuthMiddlewares')
 const { uploadOptions } = require('../Middlewares/multer')
-const {checkAdmin} = require('../Middlewares/newMiddleware')
+
 
 const multer = require('multer')
 const upload = multer({ dest: '../uploads/'})

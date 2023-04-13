@@ -29,10 +29,7 @@ const generateError = (err) => toast.error(err,{
             generateError(password)} 
            else{
            }
-         }else{
-            // navigate('/admin')
-            console.log('navingating as get');
-            
+         }else{            
             navigate('/admin');
          }
 

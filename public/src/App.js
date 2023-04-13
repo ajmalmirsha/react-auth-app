@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Users from "./Admin/Users";
 import  AdminLogin  from "./Admin/AdminLogin";
 import AddUser from "./pages/AddUser";
-import EditUser from "./Admin/EditUser";
+
 import ProfilePage from "./pages/ProfilePage";
 
 
@@ -24,7 +24,7 @@ function App() {
       <Route  exact path="/adminlogin" element={<AdminLogin/>} />
       <Route  exact path="/profile" element={<ProfilePage/>} />
       <Route  exact path="/add-user" element={<AddUser/>} />
-      <Route  exact path="/edit-user/:id" element={<EditUser/>} />
+
     </Routes>
     </BrowserRouter>
   );
