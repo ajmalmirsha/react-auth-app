@@ -17,42 +17,24 @@ const createToken = (id) =>{
 
 
 const handleErrors = (err)=>{
-   console.log('on handle eroo');
    const errorMessage = err.message;
-   console.log(errorMessage);
     let errors = {email:'', password:'',phone:''}
      if(errorMessage === 'incorrect Email'){
-      
         errors.email = 'This email is not been registred'
      }
 
-     if(errorMessage === 'incorrect password'){
-      
-        errors.password = 'wrong password'
-     }
+     if(errorMessage === 'incorrect password') errors.password = 'wrong password!'
 
-     if(errorMessage === 'Password required !'){
-      
-        errors.password = 'Password required !'
-     }
-     if(errorMessage === 'Email required !'){
-      
-        errors.password = 'Email required !'
-     }
-     if(errorMessage === 'Phone number is already registered'){
-      
-        errors.phone = 'Phone number is already registered'
-     }
+     if(errorMessage === 'Password required !') errors.password = 'Password is required !'
+     if(errorMessage === 'Email required !') errors.password = 'Email is required !'
+     if(errorMessage === 'Phone number is already registered') errors.phone = 'Phone number is already registered'
 
     if(err.code === 11000){
-        
         const emailMatch = errorMessage.match(/email: "(.*?)"/);
         const phoneMatch = errorMessage.match(/phone: "(.*?)"/);
         if (emailMatch) {
-          console.log("Duplicate email:", emailMatch[1]);
           errors.email  = 'Email is already registered'  
         } else if (phoneMatch) {
-          console.log("Duplicate phone:", phoneMatch[1]);
           errors.phone = 'Phone number is already registered'
         }
     
@@ -60,7 +42,6 @@ const handleErrors = (err)=>{
     }
 
     if(errorMessage.includes('Users validation failed')){
-        console.log('validation failed problem');
         Object.values(err.errors).forEach(({properties})=>{
             errors[properties.path] = properties.message
         })
@@ -69,9 +50,7 @@ const handleErrors = (err)=>{
 }
 
 module.exports.login = async (req,res,next) =>{
-    try {
-console.log('on the l9gin');
-     
+    try {     
         const  {email,password} = req.body
         const user = await UserModel.login( email, password)
         const token = createToken(user._id)
@@ -80,8 +59,6 @@ console.log('on the l9gin');
             httpOnly: false ,
             maxAge: maxAge * 1000
         })
-
-        console.log(token);
 
         res.status(200).json({user:user,created: true})
 
@@ -96,7 +73,6 @@ module.exports.AdminLogin = async (req,res,next) =>{
        
         const  {email,password} = req.body
         const admin = await AdminModel.login( email, password)
-        console.log('admin._id',admin._id);
         const token = createToken(admin._id)
 
         res.cookie('jwt',token, {
@@ -105,14 +81,8 @@ module.exports.AdminLogin = async (req,res,next) =>{
             maxAge: maxAge * 1000
 
         })
-
-        console.log(token);
-
         const data = await UserModel.find({})
-     console.log(data);
-     console.log("1");
      req.session.admin = token
-     console.log(req.session.admin);
         res.status(200).json({admin:admin._id,created: true,data:data})
 
     } catch (error) { 
@@ -135,7 +105,6 @@ module.exports.register = async (req,res,next) =>{
             httpOnly: false ,
             maxAge: maxAge * 1000
         })
-console.log(user , 90000);
         res.status(201).json({user:user,created: true})
 
     } catch (error) {
