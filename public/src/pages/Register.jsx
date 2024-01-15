@@ -16,36 +16,25 @@ const generateError = (err) => toast.error(err,{
     position:'bottom-right'
 })
 
-    const handlesubmit = async (e)=>{
-        console.log('reached handle submit');
+    const handleSubmit = async (e)=>{
 
         e.preventDefault()
         try {
-            console.log("inside try");
-         const {data} = await axios.post('http://localhost:4000/register',{
-             ...value
-         },
-         {withCredentials: true})
+         const {data} = await axios.post('http://localhost:4000/register',value,
+         {withCredentials: true,
+          onUploadProgress:(progEvent)=>{
+            const percentCompleted = Math.round((progEvent.loaded * 100) / progEvent.total);
+            console.log(`Response progress: ${percentCompleted}%`);
+         }
+        }
+         )
 
-          console.log('haaai');
-         console.log(data);
          if(data.errors){
-            console.log('data has error');
            const {email,password,phone} =  data.errors
-           if(email){ 
-            console.log("email");
-            generateError(email)}
-           else if (phone){ 
-       
-            generateError(phone)}
-           else if (password){
-           
-             generateError(password)}
-           else{
-           }
+           if(email)generateError(email)
+           else if (phone) generateError(phone)
+           else if (password)generateError(password)
          }else{
-            console.log("on navigaet else",data);
-            
             dispatch(
               setUserDetails({
                   id:data.user._id,
@@ -67,7 +56,7 @@ const generateError = (err) => toast.error(err,{
     <div className="container">
       <h2 className='h2'>Register Account</h2>
       <form className='form' onSubmit={(e)=>{
-        handlesubmit(e)
+        handleSubmit(e)
       }} >
         <div>
           <label htmlFor="email">Email</label>
