@@ -115,7 +115,7 @@ module.exports.admin = async (req, res) => {
 
   const data = await UserModel.find({ user: true });
 
-  res.status(200).json({ data: data });
+  res.status(200).json(data);
 };
 
 module.exports.deleteUser = (req, res, next) => {

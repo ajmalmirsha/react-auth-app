@@ -9,7 +9,9 @@ import { setUserDetails } from "../redux/userSlice";
 function Home() {
   const user = useSelector((state) => state.user);
   const [cookies, setCookie, removeCookie] = useCookies([]);
-  const [prog,setProg] = useState([])
+  const [prog, setProg] = useState([]);
+  const [users, setUsers] = useState([]);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -50,12 +52,13 @@ function Home() {
     axios
       .get("http://localhost:4000/admin", {
         onDownloadProgress: (pre) => {
-          console.log("pre", pre.total,pre.progress);
-          setProg((prev)=> [...prev,pre.download])
+          console.log("pre", pre.total, pre.progress);
+          setProg((prev) => [...prev, pre.download]);
         },
       })
       .then((res) => {
-        console.log("prog",prog,"res", res);
+        console.log("prog", prog, "res", res?.data);
+        setUsers(res?.data || []);
       });
   };
 
@@ -89,7 +92,11 @@ function Home() {
       </button>
 
       <button onClick={getAllUsers}>getAllUsers</button>
-    </>
+
+      {users?.map((x,i) => (
+        <p key={i+132} >{x?.email}</p>
+      ))}
+    </> 
   );
 }
 
