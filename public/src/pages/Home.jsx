@@ -52,12 +52,10 @@ function Home() {
     axios
       .get("http://localhost:4000/admin", {
         onDownloadProgress: (pre) => {
-          console.log("pre", pre.total, pre.progress);
           setProg((prev) => [...prev, pre.download]);
         },
       })
       .then((res) => {
-        console.log("prog", prog, "res", res?.data);
         setUsers(res?.data || []);
       });
   };
