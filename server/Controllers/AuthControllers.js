@@ -17,18 +17,20 @@ const createToken = (id) => {
 
 const handleErrors = (err) => {
   const errorMessage = err.message;
-  let errors = { email: "", password: "", phone: "" };
-  if (errorMessage === "incorrect Email") {
-    errors.email = "This email is not been registred";
-  }
+  const errors = { email: "", password: "", phone: "" };
+
+  if (errorMessage === "incorrect Email")
+    errors.email = "This email is not been registered yet !";
 
   if (errorMessage === "incorrect password")
-    errors.password = "wrong password!";
+    errors.password = "Oops you have Entered a wrong password !";
 
   if (errorMessage === "Password required !")
     errors.password = "Password is required !";
+
   if (errorMessage === "Email required !")
     errors.password = "Email is required !";
+
   if (errorMessage === "Phone number is already registered")
     errors.phone = "Phone number is already registered";
 
@@ -70,9 +72,16 @@ module.exports.login = async (req, res, next) => {
   }
 };
 
-module.exports.AdminLogin = async (req, res, next) => {
+module.exports.AdminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email)
+      res.status(500).json({ errors: "Email is required !", created: false });
+    if (!password)
+      res
+        .status(500)
+        .json({ errors: "Password is required !", created: false });
+
     const admin = await AdminModel.login(email, password);
     const token = createToken(admin._id);
 
@@ -84,7 +93,7 @@ module.exports.AdminLogin = async (req, res, next) => {
     const data = await UserModel.find({});
     req.session.admin = token;
     setTimeout(() => {
-      res.status(200).json({ admin: admin._id, created: true, data: data });
+      res.status(200).json({ admin: admin._id, created: true, data });
     }, 5000);
   } catch (error) {
     const errors = handleErrors(error);
@@ -95,6 +104,20 @@ module.exports.AdminLogin = async (req, res, next) => {
 module.exports.register = async (req, res, next) => {
   try {
     const { email, password, phone } = req.body;
+
+    if (!email)
+      res.status(500).json({ errors: "Email is required !", created: false });
+    if (!password)
+      res
+        .status(500)
+        .json({ errors: "Password is required !", created: false });
+    if (!email)
+      res.status(500).json({ errors: "Email is required !", created: false });
+    if (!phone)
+      res
+        .status(500)
+        .json({ errors: "Phone Number is required !", created: false });
+
     const user = await UserModel.create({ email, password, phone });
     const token = createToken(user._id);
     res.cookie("jwt", token, {
