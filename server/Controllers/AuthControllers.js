@@ -54,6 +54,10 @@ const handleErrors = (err) => {
   return errors;
 };
 
+const ErrorResponse = (res, msg, created = false, code = 500) => {
+  res.status(code).json({ errors: msg, created });
+};
+
 module.exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -105,18 +109,9 @@ module.exports.register = async (req, res, next) => {
   try {
     const { email, password, phone } = req.body;
 
-    if (!email)
-      res.status(500).json({ errors: "Email is required !", created: false });
-    if (!password)
-      res
-        .status(500)
-        .json({ errors: "Password is required !", created: false });
-    if (!email)
-      res.status(500).json({ errors: "Email is required !", created: false });
-    if (!phone)
-      res
-        .status(500)
-        .json({ errors: "Phone Number is required !", created: false });
+    if (!email) ErrorResponse(res, "Email is required !");
+    if (!password) ErrorResponse(res, "Password is required !");
+    if (!phone) ErrorResponse(res, "Phone Number is required !");
 
     const user = await UserModel.create({ email, password, phone });
     const token = createToken(user._id);
