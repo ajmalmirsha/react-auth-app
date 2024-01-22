@@ -8,6 +8,6 @@ const data = {
 const books = [
     {
         name: "Atomic abits",
-        
+        author: "James clear"
     }
 ]
